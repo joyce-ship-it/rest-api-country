@@ -1,0 +1,13 @@
+@import "tailwindcss";
+#root {
+  min-height: 100%;
+}
+
+@theme {
+  --color-lightText: hsl(200, 15%, 8%);
+  --color-lightInput: hsl(0, 0%, 50%);
+  --color-bg-light: hsl(0, 0%, 99%);
+  --color-bg-dark: hsl(207, 26%, 17%);
+  --color-dark-elements: hsl(209, 23%, 22%);
+  --color-white: hsl(0, 100%, 100%);
+}

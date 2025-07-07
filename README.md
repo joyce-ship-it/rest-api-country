@@ -18,7 +18,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://github.com/joyce-ship-it/rest-api-country)
+- Solution URL:(https://github.com/joyce-ship-it/rest-api-country)
 - Live Site URL: [Add live site URL here](https://your-live-site-url.com)
 
 ### Built with

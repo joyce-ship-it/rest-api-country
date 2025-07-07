@@ -80,6 +80,7 @@ export default function Details() {
             <span>Back</span>
           </div>
         </Link>
+        {status === "error" && <div>Something went wrong! 404</div>}
         {status === "success" && (
           <div className="min-w-[250px]  mt-4 p-4 md:flex md:gap-4 shadow-2xl md:p-6">
             <div className="w-full md:flex-1 ">

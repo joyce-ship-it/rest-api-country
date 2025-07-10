@@ -1,12 +1,15 @@
 import React from "react";
 const URL = `https://restcountries.com/v3.1/all?fields=name,flags,population, region,capital,region`;
 import Country from "../components/Country";
-
+import { ThemeContext } from "../App";
 export default function Home() {
-  const [status, setStatus] = React.useState("");
+  const [status, setStatus] = React.useState("loading");
   const [allCountries, setAllCountries] = React.useState([]);
   const [searchQuery, setSearchQuery] = React.useState("");
   const [region, setRegion] = React.useState("");
+
+  const { theme } = React.useContext(ThemeContext);
+
   function handleQueryChange(e) {
     const value = e.target.value;
     setSearchQuery(value);
@@ -19,17 +22,17 @@ export default function Home() {
   React.useEffect(() => {
     async function getAllCountries(URL) {
       try {
-        setStatus("Loading");
         const response = await fetch(URL);
         if (!response.ok) {
           throw Error("API Error");
         }
         const data = await response.json();
         setAllCountries(data);
-        setStatus("complete");
       } catch (error) {
         setStatus("error");
         console.log(error);
+      } finally {
+        setStatus("complete");
       }
     }
     getAllCountries(URL);
@@ -57,7 +60,13 @@ export default function Home() {
     console.log(filteredCountries);
   }
   return (
-    <div>
+    <div
+      className={
+        theme === "dark"
+          ? "bg-bg-dark text-lime-50 flex-1 flex flex-col"
+          : "flex-1 flex flex-col"
+      }
+    >
       <div className="mt-4 mb-4 mx-2 shadow-xl rounded-2xl md:hidden">
         <input
           type="text"
@@ -116,6 +125,16 @@ export default function Home() {
           </label>
         </div>
       </div>
+      {status === "loading" && (
+        <div className="flex-1 flex justify-center items-center">
+          Loading...
+        </div>
+      )}
+      {status === "error" && (
+        <div className="flex-1 flex justify-center items-center text-red-500">
+          something went wrong :(
+        </div>
+      )}
       <div className="flex flex-wrap justify-center md:justify-start gap-[1rem] sm:gap-y-[1.5rem] md:gap-y-[2rem] p-2 md:px-6">
         {status === "complete" &&
           filteredCountries.map((country) => {

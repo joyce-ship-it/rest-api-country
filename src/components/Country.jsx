@@ -15,7 +15,7 @@ export default function Country({
       className="flex flex-col min-w-[200px]  max-w-[300px] flex-1  shadow-2xl rounded-2xl"
     >
       <div className="rounded-t-2xl overflow-hidden h-[50%]">
-        <img className="w-full h-[100%]" src={imgUrl} alt={alt} />
+        <img className="w-full h-[100%] object-cover" src={imgUrl} alt={alt} />
       </div>
       <div className="pl-2 pt-2 ">
         <h2 className="text-[1.1rem]">{name}</h2>

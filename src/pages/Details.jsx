@@ -2,12 +2,15 @@ import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { IoArrowBackSharp } from "react-icons/io5";
 const URL = `https://restcountries.com/v3.1/`;
+import { ThemeContext } from "../App";
 export default function Details() {
   const { name } = useParams();
   console.log(name);
   const [countryDetails, setCountryDetails] = React.useState("");
   const [status, setStatus] = React.useState("");
   const [borderCountries, setBorderCountries] = React.useState([]);
+
+  const { theme } = React.useContext(ThemeContext);
   function getLanguageJsx() {
     const languagesArr = Object.values(countryDetails?.languages);
     return languagesArr.map((lang, index) => {
@@ -70,73 +73,93 @@ export default function Details() {
 
   // console.log(Object.values(countryDetails?.languages));
   return (
-    <div className=" max-w-[1024px]  mx-auto container">
-      <div className="sm:max-w-[500px] sm:mx-auto md:max-w-[100%]">
-        <Link to="/">
-          <div className="flex flex-row justify-center items-center gap-4 px-4 py-2 max-w-[8rem] mt-4 ml-4 shadow-[0px_4px_6px_0px_rgba(0,_0,_0,_0.1)]">
-            <div>
-              <IoArrowBackSharp />
-            </div>
-            <span>Back</span>
-          </div>
-        </Link>
-        {status === "error" && <div>Something went wrong! 404</div>}
-        {status === "success" && (
-          <div className="min-w-[250px]  mt-4 p-4 md:flex md:gap-4 shadow-2xl md:p-6">
-            <div className="w-full md:flex-1 ">
-              <img
-                src={countryDetails.flags.svg}
-                alt={countryDetails.flags.alt}
-                className="w-full max-w-[450px]"
-              />
-            </div>
-            <div className="md:flex-1">
-              <h2 className="text-[1.2rem] text-lightText mt-4 mb-2">
-                {countryDetails.name.common}
-              </h2>
-              <div className="pt-4 ">
-                <p>
-                  Native Name:{" "}
-                  <span>
-                    {countryDetails.name.native || countryDetails.name.common}
-                  </span>
-                </p>
-                <p>
-                  Population: <span>{countryDetails.population}</span>
-                </p>
-                <p>
-                  Region: <span>{countryDetails.region}</span>
-                </p>
-                <p>
-                  Sub-region: <span>{countryDetails.subregion}</span>
-                </p>
-                <p>
-                  Capital: <span>{countryDetails.capital}</span>{" "}
-                </p>
-              </div>
-
-              <div className="pt-4 ">
-                <p>
-                  Top Level Domain: <span>{countryDetails.tld}</span>
-                </p>
-                <p>
-                  Currencies:{" "}
-                  <span>
-                    {Object.values(countryDetails?.currencies)[0].name}
-                  </span>
-                </p>
-                <p>Languages: {getLanguageJsx()} </p>
-              </div>
-
+    <div
+      className={
+        theme === "dark"
+          ? "bg-black min-h-screen flex flex-col justify-center"
+          : "bg-gray-400  min-h-screen"
+      }
+    >
+      <div
+        className={
+          theme === "dark"
+            ? `text-lime-50 bg-bg-dark max-w-[1024px]  mx-auto container rounded-2xl`
+            : "bg-white max-w-[1024px]  mx-auto container rounded-2xl"
+        }
+      >
+        <div
+          className={
+            theme === "dark"
+              ? `text-lime-50 bg-dark-elements sm:max-w-[500px] sm:mx-auto md:max-w-[100%]`
+              : `sm:max-w-[500px] sm:mx-auto md:max-w-[100%] `
+          }
+        >
+          <Link to="/">
+            <div className="flex flex-row justify-center items-center gap-4 px-4 py-2 max-w-[8rem] mt-4 ml-4 shadow-[0px_4px_6px_0px_rgba(0,_0,_0,_0.1)] ">
               <div>
-                <h2>Border Countries: </h2>
-                <div className="flex flex-row flex-wrap gap-2 ">
-                  {getBorderCountries()}
+                <IoArrowBackSharp />
+              </div>
+              <span>Back</span>
+            </div>
+          </Link>
+          {status === "error" && <div>Something went wrong! 404</div>}
+          {status === "success" && (
+            <div className="min-w-[250px]  mt-4 p-4 md:flex md:gap-4 shadow-2xl md:p-6">
+              <div className="w-full md:flex-1 ">
+                <img
+                  src={countryDetails.flags.svg}
+                  alt={countryDetails.flags.alt}
+                  className="w-full max-w-[450px]"
+                />
+              </div>
+              <div className="md:flex-1">
+                <h2 className="text-[1.2rem] text-lightText mt-4 mb-2">
+                  {countryDetails.name.common}
+                </h2>
+                <div className="pt-4 ">
+                  <p>
+                    Native Name:{" "}
+                    <span>
+                      {countryDetails.name.native || countryDetails.name.common}
+                    </span>
+                  </p>
+                  <p>
+                    Population: <span>{countryDetails.population}</span>
+                  </p>
+                  <p>
+                    Region: <span>{countryDetails.region}</span>
+                  </p>
+                  <p>
+                    Sub-region: <span>{countryDetails.subregion}</span>
+                  </p>
+                  <p>
+                    Capital: <span>{countryDetails.capital}</span>{" "}
+                  </p>
+                </div>
+
+                <div className="pt-4 ">
+                  <p>
+                    Top Level Domain: <span>{countryDetails.tld}</span>
+                  </p>
+                  <p>
+                    Currencies:{" "}
+                    <span>
+                      {Object.values(countryDetails?.currencies)[0].name}
+                    </span>
+                  </p>
+                  <p>Languages: {getLanguageJsx()} </p>
+                </div>
+
+                <div>
+                  <h2>Border Countries: </h2>
+                  <div className="flex flex-row flex-wrap gap-2 ">
+                    {getBorderCountries()}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

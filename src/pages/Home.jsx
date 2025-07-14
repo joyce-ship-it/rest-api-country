@@ -63,7 +63,7 @@ export default function Home() {
     <div
       className={
         theme === "dark"
-          ? "bg-bg-dark text-lime-50 flex-1 flex flex-col"
+          ? "bg-bg-dark text-lime-50 flex-1 flex flex-col items-center"
           : "flex-1 flex flex-col"
       }
     >
@@ -73,7 +73,11 @@ export default function Home() {
           placeholder="🔍 search for a country"
           value={searchQuery}
           onChange={handleQueryChange}
-          className=" w-full p-2 pl-4 rounded-2xl outline-lightText "
+          className={
+            theme === "dark"
+              ? "bg-lightInput text-bg-dark w-full p-2 pl-4 rounded-2xl outline-lightText"
+              : "w-full p-2 pl-4 rounded-2xl outline-lightText"
+          }
         />
       </div>
       <div className="ml-4 mb-4 md:hidden">
@@ -96,13 +100,17 @@ export default function Home() {
         </label>
       </div>
       <div className="mt-4 mb-4  hidden md:flex flex-row justify-between md:px-6">
-        <div className="  shadow-xl rounded-2xl min-w-[25rem]">
+        <div className="  shadow-xl rounded-2xl min-w-[25rem] pr-4">
           <input
             type="text"
             placeholder="🔍 search for a country"
             value={searchQuery}
             onChange={handleQueryChange}
-            className=" w-full p-2 pl-4 rounded-2xl outline-lightText "
+            className={
+              theme === "dark"
+                ? "w-full p-2 pl-4 rounded-2xl outline-lightText text-lime-50 bg-black "
+                : "w-full p-2 pl-4 rounded-2xl outline-lightText"
+            }
           />
         </div>
         <div className="max-w-[fit-content]">
@@ -113,7 +121,11 @@ export default function Home() {
               onChange={handleRegionChange}
               name="filter"
               id="filter"
-              className="p-2.5 shadow-xl rounded-md outline-lightText ml-2 "
+              className={
+                theme === "dark"
+                  ? "p-2.5 shadow-xl rounded-md outline-lightText ml-2 text-lime-50 bg-black"
+                  : "p-2.5 shadow-xl rounded-md outline-lightText ml-2 "
+              }
             >
               <option value="">All</option>
               <option value="africa">Africa</option>
